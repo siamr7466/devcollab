@@ -1,16 +1,5 @@
 <div align="center">
+   *Thank you*
 </div>
 
-# Run and deploy your AI Studio app
 
-This contains everything you need to run your app locally.
-
-## Run Locally
-
-**Prerequisites:**  Node.js/ Express.js
-
-
-1. Install dependencies:
-   `npm install`
-3. Run the app:
-   `npm run dev`
