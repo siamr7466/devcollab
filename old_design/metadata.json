@@ -1,0 +1,11 @@
+{
+  "name": "DevCollab MVP",
+  "description": "A lightweight developer collaboration platform with real-time chat, team management, and project discovery.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

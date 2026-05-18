@@ -1,0 +1,113 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "App users and their profiles",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "format": "email" },
+        "nickname": { "type": "string" },
+        "avatar": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "member"] },
+        "lastSeen": { "type": "string", "format": "date-time" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["email", "nickname", "role"]
+    },
+    "Project": {
+      "title": "Project",
+      "description": "User projects being tracked",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "The creator/owner ID" },
+        "leaderId": { "type": "string", "description": "Current team leader ID" },
+        "coLeaderId": { "type": "string", "description": "Optional co-leader ID" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "category": { "type": "string" },
+        "status": { "type": "string", "enum": ["Started", "In Progress", "Completed"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "leaderId", "title", "status", "createdAt"]
+    },
+    "ProjectMember": {
+      "title": "Project Member",
+      "description": "Members assigned to a project",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "role": { "type": "string", "enum": ["leader", "co-leader", "member"] },
+        "joinedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "role", "joinedAt"]
+    },
+    "ProjectUpdate": {
+      "title": "Project Update",
+      "description": "Daily progress updates for projects",
+      "type": "object",
+      "properties": {
+        "projectId": { "type": "string" },
+        "userId": { "type": "string" },
+        "updateText": { "type": "string" },
+        "mediaUrls": { "type": "array", "items": { "type": "string" } },
+        "voiceUrl": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["projectId", "userId", "updateText", "createdAt"]
+    },
+    "ChatMessage": {
+      "title": "Chat Message",
+      "description": "Messages in the team chat",
+      "type": "object",
+      "properties": {
+        "senderId": { "type": "string" },
+        "text": { "type": "string" },
+        "voiceUrl": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["senderId", "createdAt"]
+    },
+    "Invitation": {
+      "title": "Invitation",
+      "description": "Recruitment invites for project collaboration",
+      "type": "object",
+      "properties": {
+        "projectId": { "type": "string" },
+        "projectTitle": { "type": "string" },
+        "senderId": { "type": "string" },
+        "senderName": { "type": "string" },
+        "invitedEmail": { "type": "string", "format": "email" },
+        "invitedUid": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "accepted", "declined"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["projectId", "senderId", "invitedEmail", "status", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Individual user profiles"
+    },
+    "/projects/{projectId}": {
+      "schema": "Project",
+      "description": "Project metadata"
+    },
+    "/projects/{projectId}/members/{userId}": {
+      "schema": "ProjectMember",
+      "description": "Users assigned to the project"
+    },
+    "/projects/{projectId}/updates/{updateId}": {
+      "schema": "ProjectUpdate",
+      "description": "Progress updates for a specific project"
+    },
+    "/chat_messages/{messageId}": {
+      "schema": "ChatMessage",
+      "description": "Global team chat messages"
+    },
+    "/invites/{inviteId}": {
+      "schema": "Invitation",
+      "description": "Project collaboration invites"
+    }
+  }
+}
