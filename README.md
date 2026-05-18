@@ -7,7 +7,7 @@ This contains everything you need to run your app locally.
 
 ## Run Locally
 
-**Prerequisites:**  Node.js
+**Prerequisites:**  Node.js/ Express.js
 
 
 1. Install dependencies:
